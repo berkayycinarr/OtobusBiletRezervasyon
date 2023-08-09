@@ -1,21 +1,23 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using OtobusBilet.Models;
+using System.Linq;
 
 namespace OtobusBilet.Controllers
 {
     
     public class KullaniciController : Controller
     {
-        List<Kullanici> kullanicilar = new List<Kullanici>();
+
+        public OtobusBiletContext context = new OtobusBiletContext();
+
+       
+
+       
         public IActionResult KullaniciGiris()
         {
-          
-            
-                return View("KullaniciGiris");
-            
-            
-        
+          return View("KullaniciGiris");
+             
         }
 
         public IActionResult KullaniciGiris2(Kullanici kullanici)
@@ -27,18 +29,29 @@ namespace OtobusBilet.Controllers
             }
             return View("Index");
         }
-        public IActionResult KullaniciKayit(Kullanici k)
+        [HttpPost]
+        public IActionResult Create(Kullanici kullanici)
         {
-            if(!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                kullanicilar.Add(k);
-
-                return View("KullaniciGiris");
+                context.Kullanicilar.Add(kullanici);
+                context.SaveChanges();
+                return View ("KullanıcıGirdi");
             }
-            return View();
+            return View("Anasayfa");
         }
+
+        public IActionResult KullaniciGirdi()
+        {
+            var kullanicilar1 = context.Kullanicilar.ToList();
+            return View(kullanicilar1);
+        }
+
+      
+
+
 
 
     }
 
- }
+}

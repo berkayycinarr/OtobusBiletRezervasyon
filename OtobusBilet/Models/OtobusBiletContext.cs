@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.JSInterop.Infrastructure;
+
 
 namespace OtobusBilet.Models
 {
@@ -7,6 +9,8 @@ namespace OtobusBilet.Models
         public DbSet<Kullanici> Kullanicilar { get; set; }
         public DbSet<Otobus> Otobusler { get; set; }
         public DbSet<Bilet> Biletler { get; set; }
+
+
 
 
 
